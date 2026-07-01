@@ -21,7 +21,7 @@ export type InteractiveObject = {
   challengeId?: string
   type: 'object' | 'elevator' | 'stairs_up' | 'stairs_down' | 'game_room'
   targetFloor?: number
-  gameType?: 'tenant_or_colleague' | 'kiez_sorting' | 'speed_round'
+  gameType?: 'tenant_or_colleague' | 'kiez_sorting' | 'speed_round' | 'plunger_challenge'
 }
 
 export type Floor = {
@@ -99,12 +99,15 @@ export const FLOORS: Floor[] = [
       },
     ],
     objects: [
-      { id: 'coffee_machine', x: 120, y: 120, w: 50, h: 60, label: 'Coffee Machine', icon: '☕', type: 'object' },
-      { id: 'fridge', x: 220, y: 100, w: 60, h: 80, label: 'Fridge', icon: '🧊', type: 'object' },
-      { id: 'lunch_table', x: 500, y: 280, w: 180, h: 100, label: 'Lunch Table', icon: '🍽️', type: 'object' },
-      { id: 'lunch_table2', x: 750, y: 280, w: 180, h: 100, label: 'Lunch Table', icon: '🍽️', type: 'object' },
-      { id: 'stairs_up_ug', x: 950, y: 380, w: 80, h: 100, label: 'GF →', icon: '🪜', type: 'stairs_up', targetFloor: 1 },
-      { id: 'game_room_b', x: 700, y: 100, w: 55, h: 90, label: 'Mieter?', icon: '🎮', type: 'game_room', gameType: 'tenant_or_colleague' },
+      { id: 'coffee_machine', x: 80, y: 130, w: 55, h: 65, label: 'Coffee Machine', icon: '☕', type: 'object' },
+      { id: 'fridge', x: 160, y: 130, w: 55, h: 65, label: 'Fridge', icon: '🧊', type: 'object' },
+      { id: 'microwave', x: 240, y: 130, w: 55, h: 65, label: 'Microwave', icon: '📦', type: 'object' },
+      { id: 'sink', x: 320, y: 130, w: 55, h: 65, label: 'Sink', icon: '🚿', type: 'object' },
+      { id: 'lunch_table', x: 420, y: 310, w: 180, h: 100, label: 'Lunch Table', icon: '🍽️', type: 'object' },
+      { id: 'lunch_table2', x: 660, y: 310, w: 180, h: 100, label: 'Lunch Table', icon: '🍽️', type: 'object' },
+      { id: 'toilet', x: 880, y: 130, w: 55, h: 65, label: 'Toilet', icon: '🚽', type: 'game_room', gameType: 'plunger_challenge' },
+      { id: 'game_room_b', x: 960, y: 240, w: 55, h: 90, label: 'Tenant?', icon: '🎮', type: 'game_room', gameType: 'tenant_or_colleague' },
+      { id: 'stairs_up_ug', x: 960, y: 370, w: 70, h: 85, label: 'GF →', icon: '🪜', type: 'stairs_up', targetFloor: 1 },
     ],
   },
   {
@@ -212,7 +215,7 @@ export const FLOORS: Floor[] = [
       { id: 'window_og1', x: 400, y: 80, w: 120, h: 40, label: 'Window', icon: '🪟', type: 'object' },
       { id: 'elevator_og1', x: 950, y: 180, w: 70, h: 100, label: 'Lift', icon: '🛗', type: 'elevator', targetFloor: 3 },
       { id: 'stairs_down_og1', x: 100, y: 430, w: 80, h: 80, label: 'GF ↓', icon: '🪜', type: 'stairs_down', targetFloor: 1 },
-      { id: 'game_room_1f', x: 550, y: 370, w: 55, h: 90, label: 'Mieter?', icon: '🎮', type: 'game_room', gameType: 'tenant_or_colleague' },
+      { id: 'game_room_1f', x: 550, y: 370, w: 55, h: 90, label: 'Tenant?', icon: '🎮', type: 'game_room', gameType: 'tenant_or_colleague' },
       { id: 'stairs_up_og1', x: 950, y: 400, w: 80, h: 80, label: '2F →', icon: '🪜', type: 'stairs_up', targetFloor: 3 },
     ],
   },

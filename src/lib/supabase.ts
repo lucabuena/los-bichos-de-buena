@@ -15,6 +15,7 @@ export type Bicho = {
   current_level: number
   bicho_score: number
   created_at: string
+  avatar_url?: string
 }
 
 export type Answer = {

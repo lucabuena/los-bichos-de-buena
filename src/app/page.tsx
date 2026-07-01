@@ -49,6 +49,14 @@ export default function Home() {
 
     const appearance = generateBicho(name.trim())
 
+    // Try to fetch Slack avatar silently — never blocks registration
+    let avatar_url: string | null = null
+    try {
+      const res = await fetch(`/api/slack-avatar?email=${encodeURIComponent(email.trim().toLowerCase())}`)
+      const json = await res.json()
+      avatar_url = json.avatar_url ?? null
+    } catch { /* ignore */ }
+
     const { data, error: err } = await supabase
       .from('bichos')
       .upsert({
@@ -59,6 +67,7 @@ export default function Home() {
         bicho_eyes: appearance.eyes,
         current_level: 0,
         bicho_score: 0,
+        ...(avatar_url ? { avatar_url } : {}),
       }, { onConflict: 'email' })
       .select()
       .single()
@@ -103,7 +112,7 @@ export default function Home() {
               )}
             </div>
             <h2 className="text-white font-black text-2xl mb-1">Create your Bicho</h2>
-            <p className="text-gray-500 text-sm">Your avatar is generated from your name — no two Bichos look alike.</p>
+            <p className="text-gray-500 text-sm">Your Bicho is generated from your name — unique to you.</p>
           </div>
 
           <form onSubmit={handleJoin} className="space-y-3">
@@ -129,9 +138,11 @@ export default function Home() {
               disabled={loading || !name.trim() || !email.trim()}
               className="w-full bg-[#4ade80] text-black font-black py-3 rounded-xl hover:bg-[#22c55e] transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-base mt-2"
             >
-              {loading ? 'Entering...' : "Let's go →"}
+              {loading ? 'Loading your Bicho...' : "Let's go →"}
             </button>
           </form>
+
+          <p className="text-center text-gray-700 text-xs mt-4">No passwords. No LinkedIn. Just truth.</p>
         </div>
       </main>
     )
@@ -166,11 +177,11 @@ export default function Home() {
         <div className="mb-16">
           <p className="text-gray-600 text-xs tracking-widest uppercase mb-6 text-center">How it works</p>
           <div className="grid grid-cols-2 gap-4">
-            {HOW_IT_WORKS.map(step => (
-              <div key={step.title} className="bg-[#111] border border-gray-800 rounded-2xl p-5">
-                <div className="text-2xl mb-3">{step.icon}</div>
-                <p className="text-white font-bold text-sm mb-1">{step.title}</p>
-                <p className="text-gray-500 text-xs leading-relaxed">{step.desc}</p>
+            {HOW_IT_WORKS.map(s => (
+              <div key={s.title} className="bg-[#111] border border-gray-800 rounded-2xl p-5">
+                <div className="text-2xl mb-3">{s.icon}</div>
+                <p className="text-white font-bold text-sm mb-1">{s.title}</p>
+                <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
